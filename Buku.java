@@ -22,7 +22,7 @@ public class Buku {
 
     public Buku(){}
 
-    //TUGAS 2
+    //TUGAS 3
 
     //Method setter dengan return type void bernama setPenjualan dengan parameter integer penjualan, pada method ini, variabel penjualanbulanan yang dideklarasikan dalam class akan diisi oleh nilai penjualanbulanan pada parameter dengan menggunakan keyword this
     public void setPenjualan(int penjualanbulanan){
