@@ -23,12 +23,32 @@ public class Perpustakaan {
 
         //Uji coba cek kesamaan antar buku
         System.out.println("Buku " + bukuBaru.getNamaBuku() + " memiliki persaman dengan buku " + bukuLama.getNamaBuku() + " sebesar : " + bukuBaru.cekKesamaan(bukuLama)+ "%");
+        System.out.println();
         
+
+        //TUGAS KETIGA
+        //Uji coba method hitung penjualan bulanan
+        //Method setter untuk mengisi total penjualan pada bulan ini
+        bukuBaru.setPenjualan(20);
+
+        //Hasil output method hitungRoyalti dengan 1 parameter harga jual
+        System.out.printf("Royalti yang didapat pada bulan ini adalah : Rp. %,.2f\n",bukuBaru.hitungRoyalti(150000) );
+
+        System.out.println();
         
+        //Hasil output method hitungRoyalti dengan 2 parameter yaitu harga jual dan persentase
+        System.out.printf("Royalti yang didapat pada bulan ini adalah : Rp. %,.2f\n",bukuBaru.hitungRoyalti(150000,10));
+        
+        System.out.println();
+        
+
 
         //Bahan belajar, hiraukan saja kak
         Buku bukuBaruLagi = new Buku();
         bukuBaruLagi.bacaFile("asd.txt");
+        bukuBaruLagi.simpanFile("testing.txt");
+
+        bukuBaruLagi.TampilkanDetailBuku();
     
         
 

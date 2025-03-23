@@ -10,6 +10,7 @@ public class Buku {
     private Penulis[] penulis;
     private String sinopsis;
     private int tahunterbit;
+    //Deklarasi variabel baru yaitu integer penjualan bulanan untuk memenuhi ketentuan dari soal (ada penjualannya)
     private int penjualanbulanan = 0;
 
     public Buku(String namabuku,String sinopsis,int tahunterbit, Penulis... penulis){
@@ -22,14 +23,18 @@ public class Buku {
     public Buku(){}
 
     //TUGAS 2
+
+    //Method setter dengan return type void bernama setPenjualan dengan parameter integer penjualan, pada method ini, variabel penjualanbulanan yang dideklarasikan dalam class akan diisi oleh nilai penjualanbulanan pada parameter dengan menggunakan keyword this
     public void setPenjualan(int penjualanbulanan){
         this.penjualanbulanan = penjualanbulanan;
     }
 
+    //Method getter dengan nama hitungRoyalti yang dengan pengembalian variabel double dan juga parameter yang hanya berisi satu variabel yang bersifat double dengan nama hargajual, method ini akan mengembalikan nilai perhitungan royalti dengan rumus 0,1 x harga jual x penjualan bulanan yang bertipe double
     public double hitungRoyalti(double hargajual){
         return 0.1 * hargajual * penjualanbulanan;
     }
 
+    //Method getter dengan nama hitungRoyalti yang dengan pengembalian variabel double dan juga dua parameter yang variabel yang bersifat double dengan nama hargajual dan double dengan nama persentase (persentase harus double agar pada saat pengembalian apabila hasil pembagian persentase dengan 100 bersifat desimal maka angka desimal tersebut akan ikut juga), method ini akan mengembalikan nilai perhitungan royalti dengan rumus (persentase/100) x harga jual x penjualan bulanan yang bertipe double
     public double hitungRoyalti(double hargajual, double persentase){
         return (persentase / 100) * hargajual * penjualanbulanan;
     }
@@ -39,11 +44,11 @@ public class Buku {
 
     //BAHAN BELAJAR HIRAUKAN SAJA
 
-    //Method baca file
+    //Method baca file dengan parameter nama file yang bakal diisi ke class FileReader
     public void bacaFile(String namaFile){
         //Try catch untuk exception handling apabila ada kesalahan yang terjadi (buffered reader wajib dikasih exception handling karena ada exception yang wajib diselesain (disuruh sistem jir), salah satunya karena bisa ada masalah route file yang ga ada) 
         try {
-            //Inisialisasi objek reader dari class BufferedReader yang berfungsi untuk membaca file, dan class FileReader diisi dengan nama file beserta tipe filenya (cth : .txt) untuk jadi sasaran file yang akan dibaca (bisa juga ditambahin directorynya, tapi harus make duoble slash (cth "D:\\Java\Praktikum 3\\asd.txt"))
+            //Inisialisasi objek reader dari class BufferedReader yang berfungsi untuk membaca file, dan objek class FileReader diisi dengan nama file beserta tipe filenya (cth : .txt) untuk jadi sasaran file yang akan dibaca (bisa juga ditambahin directorynya, tapi harus make duoble slash (cth "D:\\Java\Praktikum 3\\asd.txt"))
             BufferedReader reader = new BufferedReader(new FileReader(namaFile));
             //Variabel String line buat nyimpen nilai make method readLine dari class BufferedReader, karena di soal cuma disuruh baca 1 line, jadi gaperlu make looping buat baca banyak line
             String line = reader.readLine();
@@ -68,8 +73,8 @@ public class Buku {
             //Make parseInt buat ngubah string ke int
             this.tahunterbit = Integer.parseInt(atribut[3].trim());
 
-            //Kalo misalnya 2 line bisa make gini (harusnya)
-            // 2x make read line, nanti dibagi 2 block secara berurutan (kalo manggil readline bakalan baca baris teratas, kalo udah dibaca, read line yang selanjutnya bakalan baca baris dibawahnya, makanya orang biasa make while loop buat baca file yang barisnya banyak)
+            //Kalo misalnya lebih dari 1 line bisa make gini (harusnya)
+            // berkali kali make read line, nanti dibagi beberapa block secara berurutan (kalo manggil readline bakalan baca baris teratas, kalo udah dibaca, read line yang selanjutnya bakalan baca baris dibawahnya, makanya orang biasa make while loop buat baca file yang barisnya banyak)
             // block pertama isinya split judul buku sama penulis
             // block kedua isinya split sinopsis sama tahun, atau bahkan kalo mau lebih banyak line lagi tinggal isi read line lagi yang buat baca atribut
             // bisa make while loop juga sebenernya, tapi bakalan ada make if else
@@ -83,19 +88,27 @@ public class Buku {
         }
     }
 
+     //Method simpan file dengan parameter nama file yang bakal diisi ke class FileReader
     public void simpanFile(String namaFile){
+        //Try catch untuk exception handling apabila ada kesalahan yang terjadi (BufferedWriter juga wajib, kayanya hampir semua io wajib ada exception handlingnya deh)
         try {
+            //Deklarasi objek writer dengan class BufferedWriter dengan parameter objek dari class FileWriter yang punya parameter lagi yaitu string nama file beserta tipenya
             BufferedWriter writer = new BufferedWriter(new FileWriter(namaFile));
             writer.write(namabuku + ";");
             if (penulis.length > 1) {
-                for(int i = 0; i < penulis.length; i++){
+                for(int i = 0; i < penulis.length-1; i++){
                     writer.write(penulis[i].getNamaPenulis() + ",");
                 }
+                writer.write(penulis[penulis.length-1].getNamaPenulis() + "; ");
             } else {
-                writer.write(penulis[0].getNamaPenulis() + ";");
+                writer.write(penulis[0].getNamaPenulis() + "; ");
             }
+            writer.write(sinopsis + "; " + tahunterbit);
+
+             //BufferReader harus diclose untuk mencegah kebocoran memori serta banyak masalah lain yang gabisa aku sebutin
+            writer.close();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Error membaca file : " + e.getMessage() );
         }
     }
 
